@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import NavBar from './Components/Navbar';
 import { Box } from '@material-ui/core';
@@ -7,6 +7,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+const HOST_KEY= `${process.env.REACT_APP_HOST}`;
+const API_KEY = `${process.env.REACT_APP_COVID19_API_KEY}`
+
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -18,13 +21,38 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
 function App() {
   const classes = useStyles();
+  const [data, setData] = useState({ data: [] });
+  const [query, setQuery] = useState('US');
   const [country, setCountry] = React.useState('US');
+  const covid19Stats = data.data.covid19Stats;
+  console.log(covid19Stats)
 
   const handleChange = event => {
     setCountry(event.target.value);
+    setQuery(event.target.value)
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=${query}`, {
+        "method": "GET",
+        "headers": {
+          "x-rapidapi-host": HOST_KEY,
+          "x-rapidapi-key": API_KEY
+        }
+      },
+      )
+      response
+        .json()
+        .then(result => setData(result))
+        .catch(e => console.log(e))
+    };
+    fetchData();
+  }, [query]);
 
   return (
     <div className="App">
@@ -61,7 +89,7 @@ function App() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-        }}>Data from <a style={{ marginLeft: 5, color: 'blue' }} target='_blank' rel="noopener noreferrer" href={'https://rapidapi.com/KishCom/api/covid-19-coronavirus-statistics/details'}> John Hopkin's University</a></p>
+        }}>Data from <a style={{marginLeft: 5, color: 'blue'}} target='_blank' rel="noopener noreferrer" href={'https://rapidapi.com/KishCom/api/covid-19-coronavirus-statistics/details'}> John Hopkin's University</a></p>
       </Box>
     </div>
   );

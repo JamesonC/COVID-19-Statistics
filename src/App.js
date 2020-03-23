@@ -7,7 +7,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-const HOST_KEY= `${process.env.REACT_APP_HOST}`;
+import StickyTable from './Components/FixedHeaderTable';
+const HOST_KEY = `${process.env.REACT_APP_HOST}`;
 const API_KEY = `${process.env.REACT_APP_COVID19_API_KEY}`
 
 
@@ -52,7 +53,7 @@ function App() {
         .catch(e => console.log(e))
     };
     fetchData();
-  }, [query]);
+  },[query]);
 
   return (
     <div className="App">
@@ -89,8 +90,11 @@ function App() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-        }}>Data from <a style={{marginLeft: 5, color: 'blue'}} target='_blank' rel="noopener noreferrer" href={'https://rapidapi.com/KishCom/api/covid-19-coronavirus-statistics/details'}> John Hopkin's University</a></p>
+        }}>Data from <a style={{ marginLeft: 5, color: 'blue' }} target='_blank' rel="noopener noreferrer" href={'https://rapidapi.com/KishCom/api/covid-19-coronavirus-statistics/details'}> John Hopkin's University</a></p>
       </Box>
+      <div style={{ marginLeft: 50, marginRight: 50, marginBottom: 25 }}>
+        <StickyTable data={covid19Stats} />
+      </div>
     </div>
   );
 }

@@ -26,10 +26,12 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles();
   const [data, setData] = useState({ data: [] });
-  const [query, setQuery] = useState('US');
+  const [query, setQuery] = useState(''); // USA
   const [country, setCountry] = React.useState('US');
-  const covid19Stats = data.data.covid19Stats;
-  console.log(covid19Stats)
+  const covid19Stats = data.response
+
+  // console.log(typeof(covid19Stats))
+  // console.log(covid19Stats)
 
   const handleChange = event => {
     setCountry(event.target.value);
@@ -39,7 +41,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=${query}`, {
+        `https://covid-193.p.rapidapi.com/statistics`, {
         "method": "GET",
         "headers": {
           "x-rapidapi-host": HOST_KEY,
@@ -53,13 +55,13 @@ function App() {
         .catch(e => console.log(e))
     };
     fetchData();
-  },[query]);
+  },[]);
 
   return (
     <div className="App">
       <NavBar />
       <Box display='flex' flexDirection='row' style={{ paddingLeft: 50, paddingTop: 10, paddingBottom: 10 }}>
-        <div>
+        {/* <div>
           <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>
             <Select
@@ -85,12 +87,12 @@ function App() {
               <MenuItem value={'France'}>France</MenuItem>
             </Select>
           </FormControl>
-        </div>
-        <p style={{
+        </div> */}
+        {/* <p style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-        }}>Data from <a style={{ marginLeft: 5, color: 'blue' }} target='_blank' rel="noopener noreferrer" href={'https://rapidapi.com/KishCom/api/covid-19-coronavirus-statistics/details'}> John Hopkin's University</a></p>
+        }}>Data from <a style={{ marginLeft: 5, color: 'blue' }} target='_blank' rel="noopener noreferrer" href={'https://rapidapi.com/KishCom/api/covid-19-coronavirus-statistics/details'}> John Hopkin's University</a></p> */}
       </Box>
       <div style={{ marginLeft: 50, marginRight: 50, marginBottom: 25 }}>
         <StickyTable data={covid19Stats} />

@@ -10,33 +10,47 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
 const columns = [
-  { id: 'province', label: 'Province/State', minWidth: 170 },
   { id: 'country', label: 'Country', minWidth: 100 },
+  { id: 'day', label: 'Day/Time', align: 'center', minWidth: 100 },
   {
     id: 'lastUpdate',
-    label: 'Last Updated',
-    minWidth: 170,
+    label: 'New Cases',
+    minWidth: 100,
     align: 'right',
     format: value => value.toLocaleString(),
   },
   {
     id: 'confirmed',
-    label: 'Confirmed',
-    minWidth: 170,
+    label: 'Active Cases',
+    minWidth: 100,
     align: 'right',
     format: value => value.toLocaleString(),
   },
   {
     id: 'deaths',
-    label: 'Deaths',
-    minWidth: 170,
+    label: 'Critical Cases',
+    minWidth: 100,
     align: 'right',
     format: value => value.toFixed(2),
   },
   {
-    id: 'recovered',
-    label: 'Recovered',
-    minWidth: 170,
+    id: 'recovered cases',
+    label: 'Recovered Cases',
+    minWidth: 100,
+    align: 'right',
+    format: value => value.toFixed(2),
+  },
+  {
+    id: 'Total Cases',
+    label: 'Total Cases',
+    minWidth: 100,
+    align: 'right',
+    format: value => value.toFixed(2),
+  },
+  {
+    id: 'Total Deaths',
+    label: 'Total Deaths',
+    minWidth: 100,
     align: 'right',
     format: value => value.toFixed(2),
   },
@@ -52,29 +66,29 @@ const useStyles = makeStyles({
 });
 
 const StyledTableCell = withStyles(theme => ({
-    head: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
-        width: 500
-    },
-    body: {
-        fontSize: 14,
-    },
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+    width: 500
+  },
+  body: {
+    fontSize: 14,
+  },
 }))(TableCell);
 
 const StyledTableRow = withStyles(theme => ({
-    root: {
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.background.default,
-        },
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.background.default,
     },
+  },
 }))(TableRow);
 
-export default function StickyHeadTable(data) {
+export default function StickyHeadTable(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const stats = data.data
+  const stats = props.data
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -88,50 +102,50 @@ export default function StickyHeadTable(data) {
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
-      {stats !== undefined ?
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <StyledTableRow>
-              {columns.map(column => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth, backgroundColor: '#1B1B1B', color: 'white' }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </StyledTableRow>
-          </TableHead>
-          <TableBody>
-            {stats.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
-              return (
-                <StyledTableRow hover role="checkbox" tabIndex={-1} key={index}>
-                  {columns.map((column, index) => {
-                    const value = row[column.id];
-                    return (
-                      <StyledTableCell key={index} align={column.align}>
-                        {/* {column.format && typeof value === 'number' ? column.format(value) : value} */}
-                        {value}
-                      </StyledTableCell>
-                    );
-                  })}
-                </StyledTableRow>
-              );
-            })}
-          </TableBody> 
-        </Table> : null }
+        {stats !== undefined ?
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <StyledTableRow>
+                {columns.map(column => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth, backgroundColor: '#1B1B1B', color: 'white' }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </StyledTableRow>
+            </TableHead>
+            <TableBody>
+              {stats.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
+                return (
+                  <StyledTableRow key={index}>
+                    <StyledTableCell component="th" scope="row">{row.country}</StyledTableCell>
+                    <StyledTableCell align="right">{row.time}</StyledTableCell>
+                    <StyledTableCell align="right">{row.cases.new}</StyledTableCell>
+                    <StyledTableCell align="right">{row.cases.active}</StyledTableCell>
+                    <StyledTableCell align="right">{row.cases.critical}</StyledTableCell>
+                    <StyledTableCell align="right">{row.cases.recovered}</StyledTableCell>
+                    <StyledTableCell align="right">{row.cases.total}</StyledTableCell>
+                    {/* <StyledTableCell align="right">{row.deaths.new}</StyledTableCell> */}
+                    <StyledTableCell align="right">{row.deaths.total}</StyledTableCell>
+                  </StyledTableRow>
+                );
+              })}
+            </TableBody>
+          </Table> : null}
       </TableContainer>
       {stats !== undefined ?
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={Object.keys(stats).length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      /> : null }
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={Object.keys(stats).length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        /> : null}
     </Paper>
   );
 }

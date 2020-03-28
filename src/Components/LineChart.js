@@ -46,7 +46,7 @@ export default function Chart (props) {
     
     return(
         <Paper>
-        <h4>Active Cases vs. Critical Cases</h4>
+        <h4 style={{paddingTop: 10}}>Active Cases vs. Critical Cases</h4>
         <LineChart
             width={500}
             height={300}

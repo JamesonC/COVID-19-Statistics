@@ -30,8 +30,8 @@ function App() {
   const classes = useStyles();
   const [data, setData] = useState({ data: [] });
   const [dataHistory, setDataHistory] = useState({ dataHistory: [] });
-  const [query, setQuery] = useState('China'); // USA
-  const [country, setCountry] = React.useState('China');
+  const [query, setQuery] = useState('Italy'); // USA
+  const [country, setCountry] = React.useState('Italy');
   const covid19Stats = data.response
   const countryHistory = dataHistory.response
 

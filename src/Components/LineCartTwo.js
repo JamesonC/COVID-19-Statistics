@@ -28,8 +28,21 @@ import {
 //     },
 // ];
 
+const convertObject = obj => {
+    if (obj === undefined ) {
+        return null
+    } else {
+        const objectArray = Object.entries(obj).reverse()
+        const arrayObject = objectArray.map(([key, value]) => {
+            return value
+          })
+          return arrayObject
+    }
+}
+
 export default function Chart (props) {
     const data = props.data
+    const sortedData = convertObject(data)
     
     return(
         <Paper>
@@ -37,7 +50,7 @@ export default function Chart (props) {
         <LineChart
             width={500}
             height={300}
-            data={data}
+            data={sortedData}
             margin={{
                 top: 5, right: 30, left: 20, bottom: 5,
             }}

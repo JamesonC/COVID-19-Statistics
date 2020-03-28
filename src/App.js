@@ -10,6 +10,7 @@ import Select from '@material-ui/core/Select';
 import StickyTable from './Components/FixedHeaderTable';
 import LineChart from './Components/LineChart';
 import LineChartTwo from './Components/LineCartTwo';
+// import PieChart from './Components/PieChart';
 const HOST_KEY = `${process.env.REACT_APP_HOST}`;
 const API_KEY = `${process.env.REACT_APP_COVID19_API_KEY}`
 
@@ -118,7 +119,8 @@ function App() {
         <div>
           <LineChart data={countryHistory} />
         </div>
-        <div style={{marginLeft: 20}}>
+        <div style={{ marginLeft: 20 }}>
+          {/* <PieChart data={countryHistory} /> */}
           <LineChartTwo data={countryHistory} />
         </div>
       </Box>

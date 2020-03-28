@@ -87,7 +87,7 @@ const StyledTableRow = withStyles(theme => ({
 export default function StickyHeadTable(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const stats = props.data
 
   const handleChangePage = (event, newPage) => {
@@ -138,7 +138,7 @@ export default function StickyHeadTable(props) {
       </TableContainer>
       {stats !== undefined ?
         <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
+          rowsPerPageOptions={[5, 25, 100]}
           component="div"
           count={Object.keys(stats).length}
           rowsPerPage={rowsPerPage}

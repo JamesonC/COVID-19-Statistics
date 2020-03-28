@@ -52,7 +52,7 @@ export default function Chart (props) {
             height={300}
             data={sortedData}
             margin={{
-                top: 5, right: 30, left: 20, bottom: 5,
+                top: 5, right: 75, left: 20, bottom: 5,
             }}
         >
             <CartesianGrid strokeDasharray="3 3" />

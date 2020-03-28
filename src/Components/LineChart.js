@@ -43,6 +43,7 @@ const convertObject = obj => {
 export default function Chart (props) {
     const data = props.data
     const sortedData = convertObject(data)
+    console.log(sortedData)
     
     return(
         <Paper>
@@ -52,7 +53,7 @@ export default function Chart (props) {
             height={300}
             data={sortedData}
             margin={{
-                top: 5, right: 100, left: 20, bottom: 5,
+                top: 5, right: 75, left: 20, bottom: 5,
             }}
         >
             <CartesianGrid strokeDasharray="3 3" />

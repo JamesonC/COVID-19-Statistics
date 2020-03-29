@@ -46,13 +46,13 @@ export default function Chart (props) {
     
     return(
         <Paper>
-        <h4 style={{paddingTop: 10}}>Recovered Cases vs. Total Cases</h4>
+        <h4 style={{paddingTop: 10}}>Recovered vs. Total</h4>
         <LineChart
             width={500}
             height={300}
             data={sortedData}
             margin={{
-                top: 5, right: 75, left: 20, bottom: 5,
+                top: 5, right: 75, left: 50, bottom: 5,
             }}
         >
             <CartesianGrid strokeDasharray="3 3" />

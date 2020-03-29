@@ -8,6 +8,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import StickyTable from './Components/FixedHeaderTable';
+import LineChart from './Components/LineChart';
+import LineChartTwo from './Components/LineCartTwo';
+// import PieChart from './Components/PieChart';
 const HOST_KEY = `${process.env.REACT_APP_HOST}`;
 const API_KEY = `${process.env.REACT_APP_COVID19_API_KEY}`
 
@@ -26,12 +29,11 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles();
   const [data, setData] = useState({ data: [] });
-  const [query, setQuery] = useState(''); // USA
-  const [country, setCountry] = React.useState('US');
+  const [dataHistory, setDataHistory] = useState({ dataHistory: [] });
+  const [query, setQuery] = useState('Italy'); // USA
+  const [country, setCountry] = React.useState('Italy');
   const covid19Stats = data.response
-
-  // console.log(typeof(covid19Stats))
-  // console.log(covid19Stats)
+  const countryHistory = dataHistory.response
 
   const handleChange = event => {
     setCountry(event.target.value);
@@ -55,13 +57,32 @@ function App() {
         .catch(e => console.log(e))
     };
     fetchData();
-  },[]);
+  }, []);
+
+  useEffect(() => {
+    const fetchDataHistory = async () => {
+      const response = await fetch(
+        `https://covid-193.p.rapidapi.com/history?country=${query}`, {
+        "method": "GET",
+        "headers": {
+          "x-rapidapi-host": HOST_KEY,
+          "x-rapidapi-key": API_KEY
+        }
+      },
+      )
+      response
+        .json()
+        .then(result => setDataHistory(result))
+        .catch(e => console.log(e))
+    };
+    fetchDataHistory();
+  }, [query]);
 
   return (
     <div className="App">
       <NavBar />
-      <Box display='flex' flexDirection='row' style={{ paddingLeft: 50, paddingTop: 10, paddingBottom: 10 }}>
-        {/* <div>
+      <Box display='flex' style={{ marginLeft: 50, marginTop: 10 }}>
+        <div>
           <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>
             <Select
@@ -73,7 +94,7 @@ function App() {
             >
               <MenuItem value="">
               </MenuItem>
-              <MenuItem value={'US'}>United States</MenuItem>
+              <MenuItem value={'USA'}>United States</MenuItem>
               <MenuItem value={'Italy'}>Italy</MenuItem>
               <MenuItem value={'Canada'}>Canada</MenuItem>
               <MenuItem value={'China'}>China</MenuItem>
@@ -87,14 +108,23 @@ function App() {
               <MenuItem value={'France'}>France</MenuItem>
             </Select>
           </FormControl>
-        </div> */}
-        {/* <p style={{
+        </div>
+        <p style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-        }}>Data from <a style={{ marginLeft: 5, color: 'blue' }} target='_blank' rel="noopener noreferrer" href={'https://rapidapi.com/KishCom/api/covid-19-coronavirus-statistics/details'}> John Hopkin's University</a></p> */}
+        }}>Get statistics for all countries about COVID-19</p>
       </Box>
-      <div style={{ marginLeft: 50, marginRight: 50, marginBottom: 25 }}>
+      <Box display='flex' flex-wrap='wrap' flexDirection='row' style={{ marginBottom: 10, marginLeft: 50, marginRight: 50 }}>
+        <div>
+          <LineChart data={countryHistory} />
+        </div>
+        <div style={{ marginLeft: 20 }}>
+          {/* <PieChart data={countryHistory} /> */}
+          <LineChartTwo data={countryHistory} />
+        </div>
+      </Box>
+      <div style={{ marginLeft: 50, marginRight: 50, marginTop: 25, marginBottom: 25 }}>
         <StickyTable data={covid19Stats} />
       </div>
     </div>

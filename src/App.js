@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
+
 function App() {
   const classes = useStyles();
   const [data, setData] = useState({ data: [] });
@@ -34,11 +35,24 @@ function App() {
   const [country, setCountry] = React.useState('Italy');
   const covid19Stats = data.response
   const countryHistory = dataHistory.response
+  const [server, setServer] = useState({ data: null})
 
   const handleChange = event => {
     setCountry(event.target.value);
     setQuery(event.target.value)
   };
+
+
+  // useEffect(() => {
+  //   const callBackendAPI = async () => {
+  //     const response = await fetch('/express_backend');
+  //     response
+  //       .json()
+  //       .then(result => setServer(result))
+  //       .catch((e => console.log(e)))
+  //   };
+  //   callBackendAPI()
+  // }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,7 +70,7 @@ function App() {
         .then(result => setData(result))
         .catch(e => console.log(e))
     };
-    fetchData();
+    fetchData();;
   }, []);
 
   useEffect(() => {
@@ -82,6 +96,7 @@ function App() {
     <div className="App">
       <NavBar />
       <Box display='flex' style={{ marginLeft: 50, marginTop: 10 }}>
+      {/* <p>{server.express}</p> */}
         <div>
           <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>

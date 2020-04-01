@@ -54,6 +54,8 @@ function App() {
     callBackendAPI()
   }, []);
 
+  // console.log(server)
+
   useEffect(() => {
     const fetchDataHistory = async () => {
       const response = await fetch(
@@ -127,11 +129,11 @@ function App() {
           alignItems: "center",
         }}>Get statistics for all countries about COVID-19</p>
       </Box>
-      <Box display='flex' flex-wrap='wrap' flexDirection='row' style={{ marginBottom: 10, marginLeft: 50, marginRight: 50 }}>
+      <Box display='flex' flex-wrap='wrap' flexDirection='row' justifyContent='space-around' style={{ marginBottom: 10, marginLeft: 50, marginRight: 50 }}>
         <div>
           <LineChart data={countryHistory} />
         </div>
-        <div style={{ marginLeft: 20 }}>
+        <div>
           {/* <PieChart data={countryHistory} /> */}
           <LineChartTwo data={countryHistory} />
         </div>

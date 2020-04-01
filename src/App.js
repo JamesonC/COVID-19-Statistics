@@ -55,25 +55,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `https://covid-193.p.rapidapi.com/statistics`, {
-        "method": "GET",
-        "headers": {
-          "x-rapidapi-host": HOST_KEY,
-          "x-rapidapi-key": API_KEY
-        }
-      },
-      )
-      response
-        .json()
-        .then(result => setData(result))
-        .catch(e => console.log(e))
-    };
-    fetchData();;
-  }, []);
-
-  useEffect(() => {
     const fetchDataHistory = async () => {
       const response = await fetch(
         `https://covid-193.p.rapidapi.com/history?country=${query}`, {
@@ -89,7 +70,23 @@ function App() {
         .then(result => setDataHistory(result))
         .catch(e => console.log(e))
     };
+    const fetchData = async () => {
+      const response = await fetch(
+        `https://covid-193.p.rapidapi.com/statistics`, {
+        "method": "GET",
+        "headers": {
+          "x-rapidapi-host": HOST_KEY,
+          "x-rapidapi-key": API_KEY
+        }
+      },
+      )
+      response
+        .json()
+        .then(result => setData(result))
+        .catch(e => console.log(e))
+    };
     fetchDataHistory();
+    fetchData()
   }, [query]);
 
   return (

@@ -43,16 +43,16 @@ function App() {
   };
 
 
-  // useEffect(() => {
-  //   const callBackendAPI = async () => {
-  //     const response = await fetch('/express_backend');
-  //     response
-  //       .json()
-  //       .then(result => setServer(result))
-  //       .catch((e => console.log(e)))
-  //   };
-  //   callBackendAPI()
-  // }, []);
+  useEffect(() => {
+    const callBackendAPI = async () => {
+      const response = await fetch('/');
+      response
+        .json()
+        .then(result => setServer(result))
+        .catch((e => console.log(e)))
+    };
+    callBackendAPI()
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {

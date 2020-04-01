@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactGA from 'react-ga';
 import './App.css';
 import NavBar from './Components/Navbar';
 import { Box } from '@material-ui/core';
@@ -11,8 +12,13 @@ import StickyTable from './Components/FixedHeaderTable';
 import LineChart from './Components/LineChart';
 import LineChartTwo from './Components/LineCartTwo';
 // import PieChart from './Components/PieChart';
+const GA_ID = `${process.env.REACT_APP_GA_KEY}`;
 const HOST_KEY = `${process.env.REACT_APP_HOST}`;
 const API_KEY = `${process.env.REACT_APP_COVID19_API_KEY}`
+
+
+const trackingId = GA_ID; // Google Analytics tracking ID
+ReactGA.initialize(trackingId);
 
 
 const useStyles = makeStyles(theme => ({
@@ -41,7 +47,6 @@ function App() {
     setCountry(event.target.value);
     setQuery(event.target.value)
   };
-
 
   useEffect(() => {
     const callBackendAPI = async () => {

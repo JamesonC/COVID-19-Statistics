@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { FaGithub } from 'react-icons/fa';
+import { FaEnvelopeOpenText } from 'react-icons/fa';
 
 const useStyles = makeStyles({
   root: {
@@ -30,7 +31,8 @@ export default function SimpleAppBar() {
             COVID-19 Statistics
           </Typography>
           <div style={{ position: 'absolute', right: 0, marginRight: 50 }}>
-            <a target='_blank' rel="noopener noreferrer" style={{ color: 'white' }} href={'https://github.com/JamesonC/COVID-19-Statistics'}> <FaGithub size={30} /></a>
+            <a target='_blank' rel="noopener noreferrer" style={{ color: 'white', marginRight: 20 }} href={'https://forms.gle/apBVdMxyAydpA9g57'}><FaEnvelopeOpenText size={30} /></a>
+            <a target='_blank' rel="noopener noreferrer" style={{ color: 'white' }} href={'https://github.com/JamesonC/COVID-19-Statistics'}><FaGithub size={30} /></a>
           </div>
         </Toolbar>
       </AppBar>

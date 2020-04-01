@@ -35,7 +35,7 @@ function App() {
   const [country, setCountry] = React.useState('Italy');
   const covid19Stats = data.response
   const countryHistory = dataHistory.response
-  const [server, setServer] = useState({ data: null})
+  const [server, setServer] = useState({ data: null })
 
   const handleChange = event => {
     setCountry(event.target.value);
@@ -54,24 +54,7 @@ function App() {
     callBackendAPI()
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `https://covid-193.p.rapidapi.com/statistics`, {
-        "method": "GET",
-        "headers": {
-          "x-rapidapi-host": HOST_KEY,
-          "x-rapidapi-key": API_KEY
-        }
-      },
-      )
-      response
-        .json()
-        .then(result => setData(result))
-        .catch(e => console.log(e))
-    };
-    fetchData();;
-  }, []);
+  // console.log(server)
 
   useEffect(() => {
     const fetchDataHistory = async () => {
@@ -89,14 +72,30 @@ function App() {
         .then(result => setDataHistory(result))
         .catch(e => console.log(e))
     };
+    const fetchData = async () => {
+      const response = await fetch(
+        `https://covid-193.p.rapidapi.com/statistics`, {
+        "method": "GET",
+        "headers": {
+          "x-rapidapi-host": HOST_KEY,
+          "x-rapidapi-key": API_KEY
+        }
+      },
+      )
+      response
+        .json()
+        .then(result => setData(result))
+        .catch(e => console.log(e))
+    };
     fetchDataHistory();
+    fetchData()
   }, [query]);
 
   return (
     <div className="App">
       <NavBar />
       <Box display='flex' style={{ marginLeft: 50, marginTop: 10 }}>
-      {/* <p>{server.express}</p> */}
+        {/* <p>{server.express}</p> */}
         <div>
           <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>
@@ -130,11 +129,11 @@ function App() {
           alignItems: "center",
         }}>Get statistics for all countries about COVID-19</p>
       </Box>
-      <Box display='flex' flex-wrap='wrap' flexDirection='row' style={{ marginBottom: 10, marginLeft: 50, marginRight: 50 }}>
+      <Box display='flex' flex-wrap='wrap' flexDirection='row' justifyContent='space-around' style={{ marginBottom: 10, marginLeft: 50, marginRight: 50 }}>
         <div>
           <LineChart data={countryHistory} />
         </div>
-        <div style={{ marginLeft: 20 }}>
+        <div>
           {/* <PieChart data={countryHistory} /> */}
           <LineChartTwo data={countryHistory} />
         </div>

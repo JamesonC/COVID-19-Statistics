@@ -1,5 +1,4 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
@@ -45,7 +44,7 @@ export default function Chart(props) {
     const sortedData = convertObject(data)
 
     return (
-        <div>
+        <React.Fragment>
             <h4 style={{ paddingTop: 10 }}>Active vs. Critical</h4>
             <LineChart
                 width={500}
@@ -63,6 +62,6 @@ export default function Chart(props) {
                 <Line type="monotone" dataKey="cases.active" stroke="#8884d8" activeDot={{ r: 8 }} />
                 <Line type="monotone" dataKey="cases.critical" stroke="#82ca9d" />
             </LineChart>
-        </div>
+        </React.Fragment>
     )
 }

@@ -33,9 +33,44 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const calculateWorldwideTotal = obj => {
+  if (obj === undefined) {
+    return null
+  } else {
+    const arrayObject = obj.map(result => {
+      return result.cases.total
+    })
+    const total = arrayObject.reduce((a, b) => a + b / 2).toLocaleString()
+    return total
+  }
+}
+
+const calculateWorldwideTotalCases = obj => {
+  if (obj === undefined) {
+    return null
+  } else {
+    const arrayObject = obj.map(result => {
+      return result.cases.total
+    })
+    const total = arrayObject.reduce((a, b) => a + b / 2).toLocaleString()
+    return total
+  }
+}
+
+const calculateWorldwideTotalDeaths = obj => {
+  if (obj === undefined) {
+    return null
+  } else {
+    const arrayObject = obj.map(result => {
+      return result.deaths.total
+    })
+    const deathTotal = arrayObject.reduce((a, b) => a + b / 2).toLocaleString()
+    return deathTotal
+  }
+}
 
 
-function App() {
+function App(props) {
   const classes = useStyles();
   const [data, setData] = useState({ data: [] });
   const [dataHistory, setDataHistory] = useState({ dataHistory: [] });
@@ -44,6 +79,13 @@ function App() {
   const covid19Stats = data.response
   const countryHistory = dataHistory.response
   const [server, setServer] = useState({ data: null })
+
+  const totalWorldwideDeaths = calculateWorldwideTotalDeaths(covid19Stats)
+
+  const totalCases = calculateWorldwideTotalCases(covid19Stats)
+  console.log(totalCases)
+  console.log(totalWorldwideDeaths)
+
 
   const handleChange = event => {
     setCountry(event.target.value);
@@ -98,6 +140,8 @@ function App() {
     fetchData()
   }, [query]);
 
+
+
   return (
     <div className="App">
       <NavBar />
@@ -136,6 +180,16 @@ function App() {
             justifyContent: "center",
             alignItems: "center",
           }}>Get statistics for all countries about COVID-19</p>
+          {/* <p style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}>Total Worldwide Cases: {totalCases}</p>
+          <p style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}>Total Worldwide Deathers: {totalWorldwideDeaths}</p> */}
         </Box>
         <Box display='flex' flexWrap="wrap" justifyContent='space-around' style={{ marginBottom: 10, marginTop: 10 }}>
           <Paper>

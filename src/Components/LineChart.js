@@ -1,7 +1,7 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 
 // const data = [
@@ -29,40 +29,40 @@ import {
 // ];
 
 const convertObject = obj => {
-    if (obj === undefined ) {
+    if (obj === undefined) {
         return null
     } else {
         const objectArray = Object.entries(obj).reverse()
         const arrayObject = objectArray.map(([key, value]) => {
             return value
-          })
-          return arrayObject
+        })
+        return arrayObject
     }
 }
 
-export default function Chart (props) {
+export default function Chart(props) {
     const data = props.data
     const sortedData = convertObject(data)
 
-    return(
-        <Paper>
-        <h4 style={{paddingTop: 10}}>Active vs. Critical</h4>
-        <LineChart
-            width={500}
-            height={300}
-            data={sortedData}
-            margin={{
-                top: 5, right: 75, left: 50, bottom: 5,
-            }}
-        >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="day" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="cases.active" stroke="#8884d8" activeDot={{ r: 8 }} />
-            <Line type="monotone" dataKey="cases.critical" stroke="#82ca9d" />
-        </LineChart>
-    </Paper>
+    return (
+        <div>
+            <h4 style={{ paddingTop: 10 }}>Active vs. Critical</h4>
+            <LineChart
+                width={500}
+                height={300}
+                data={sortedData}
+                margin={{
+                    top: 5, right: 75, left: 25, bottom: 5,
+                }}
+            >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="day" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="cases.active" stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="cases.critical" stroke="#82ca9d" />
+            </LineChart>
+        </div>
     )
 }

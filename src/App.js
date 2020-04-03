@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactGA from 'react-ga';
 import './App.css';
 import NavBar from './Components/Navbar';
-import { Box } from '@material-ui/core';
+import { Box, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -99,52 +99,53 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <Box display='flex' style={{ marginLeft: 50, marginTop: 10 }}>
-        {/* <p>{server.express}</p> */}
-        <div>
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              value={country}
-              onChange={handleChange}
-              label="Country"
-            >
-              <MenuItem value="">
-              </MenuItem>
-              <MenuItem value={'USA'}>United States</MenuItem>
-              <MenuItem value={'Italy'}>Italy</MenuItem>
-              <MenuItem value={'Canada'}>Canada</MenuItem>
-              <MenuItem value={'China'}>China</MenuItem>
-              <MenuItem value={'India'}>India</MenuItem>
-              <MenuItem value={'Indonesia'}>Indonesia</MenuItem>
-              <MenuItem value={'Pakistan'}>Pakistan</MenuItem>
-              <MenuItem value={'Brazil'}>Brazil</MenuItem>
-              <MenuItem value={'Russia'}>Russia</MenuItem>
-              <MenuItem value={'Mexico'}>Mexico</MenuItem>
-              <MenuItem value={'Japan'}>Japan</MenuItem>
-              <MenuItem value={'France'}>France</MenuItem>
-            </Select>
-          </FormControl>
+      <div style={{ marginLeft: 50, marginRight: 50 }}>
+        <Box display='flex' style={{ marginTop: 10 }}>
+          {/* <p>{server.express}</p> */}
+          <div>
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={country}
+                onChange={handleChange}
+                label="Country"
+              >
+                <MenuItem value="">
+                </MenuItem>
+                <MenuItem value={'USA'}>United States</MenuItem>
+                <MenuItem value={'Italy'}>Italy</MenuItem>
+                <MenuItem value={'Canada'}>Canada</MenuItem>
+                <MenuItem value={'China'}>China</MenuItem>
+                <MenuItem value={'India'}>India</MenuItem>
+                <MenuItem value={'Indonesia'}>Indonesia</MenuItem>
+                <MenuItem value={'Pakistan'}>Pakistan</MenuItem>
+                <MenuItem value={'Brazil'}>Brazil</MenuItem>
+                <MenuItem value={'Russia'}>Russia</MenuItem>
+                <MenuItem value={'Mexico'}>Mexico</MenuItem>
+                <MenuItem value={'Japan'}>Japan</MenuItem>
+                <MenuItem value={'France'}>France</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+          <p style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}>Get statistics for all countries about COVID-19</p>
+        </Box>
+        <Box display='flex' flexWrap="wrap" style={{ marginBottom: 10 }}>
+          <Paper style={{ marginRight: 50 }}>
+            <LineChart data={countryHistory} />
+          </Paper>
+          <Paper>
+            <LineChartTwo data={countryHistory} />
+          </Paper>
+        </Box>
+        <div style={{ marginTop: 25, marginBottom: 25 }}>
+          <StickyTable data={covid19Stats} />
         </div>
-        <p style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}>Get statistics for all countries about COVID-19</p>
-      </Box>
-      <Box display='flex' flex-wrap='wrap' flexDirection='row' justifyContent='space-around' style={{ marginBottom: 10, marginLeft: 50, marginRight: 50 }}>
-        <div>
-          <LineChart data={countryHistory} />
-        </div>
-        <div>
-          {/* <PieChart data={countryHistory} /> */}
-          <LineChartTwo data={countryHistory} />
-        </div>
-      </Box>
-      <div style={{ marginLeft: 50, marginRight: 50, marginTop: 25, marginBottom: 25 }}>
-        <StickyTable data={covid19Stats} />
       </div>
     </div>
   );

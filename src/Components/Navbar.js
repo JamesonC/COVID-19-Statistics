@@ -28,7 +28,7 @@ export default function SimpleAppBar() {
             style={{ maxWidth: 50, maxHeight: 50, borderRadius: 5 }}
           />
           <Typography variant="h6" color="inherit" style={{ paddingLeft: 10 }}>
-            COVID-19 Statistics
+            COVID-19 Tracker
           </Typography>
           <div style={{ position: 'absolute', right: 0, marginRight: 50 }}>
             <a target='_blank' rel="noopener noreferrer" style={{ color: 'white', marginRight: 20 }} href={'https://forms.gle/apBVdMxyAydpA9g57'}><FaEnvelopeOpenText size={30} /></a>

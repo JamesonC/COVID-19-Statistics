@@ -99,7 +99,7 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <div style={{ marginLeft: 50, marginRight: 50 }}>
+      <div justifyContent='space-around' style={{marginLeft: 50, marginRight: 50}}>
         <Box display='flex' style={{ marginTop: 10 }}>
           {/* <p>{server.express}</p> */}
           <div>
@@ -135,15 +135,15 @@ function App() {
             alignItems: "center",
           }}>Get statistics for all countries about COVID-19</p>
         </Box>
-        <Box display='flex' flexWrap="wrap" style={{ marginBottom: 10 }}>
-          <Paper style={{ marginRight: 50 }}>
+        <Box display='flex' flexWrap="wrap" justifyContent='space-around' style={{ marginBottom: 10, marginTop: 10 }}>
+          <Paper >
             <LineChart data={countryHistory} />
           </Paper>
           <Paper>
             <LineChartTwo data={countryHistory} />
           </Paper>
         </Box>
-        <div style={{ marginTop: 25, marginBottom: 25 }}>
+        <div style={{marginTop: 25}}>
           <StickyTable data={covid19Stats} />
         </div>
       </div>

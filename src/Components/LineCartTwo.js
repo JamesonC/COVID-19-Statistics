@@ -46,7 +46,7 @@ export default function Chart(props) {
 
     return (
         <div>
-            <h4 style={{ paddingTop: 10 }}>Recovered vs. Total</h4>
+            <h4 style={{ paddingTop: 10 }}>Total Deaths</h4>
             <LineChart
                 width={500}
                 height={300}
@@ -60,8 +60,7 @@ export default function Chart(props) {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="cases.total" stroke="#82ca9d" />
-                <Line type="monotone" dataKey="cases.recovered" stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="deaths.total" stroke="#8884d8" activeDot={{ r: 8 }} />
             </LineChart>
         </div>
     )

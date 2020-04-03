@@ -11,6 +11,8 @@ import Select from '@material-ui/core/Select';
 import StickyTable from './Components/FixedHeaderTable';
 import LineChart from './Components/LineChart';
 import LineChartTwo from './Components/LineCartTwo';
+import StackedBarChar from './Components/StackedBarChart';
+import MixedBarChart from './Components/MixedBarChart';
 // import PieChart from './Components/PieChart';
 const GA_ID = `${process.env.REACT_APP_GA_KEY}`;
 const HOST_KEY = `${process.env.REACT_APP_HOST}`;
@@ -99,7 +101,7 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <div justifyContent='space-around' style={{marginLeft: 50, marginRight: 50}}>
+      <div justifyContent='space-around' style={{ marginLeft: 50, marginRight: 50 }}>
         <Box display='flex' style={{ marginTop: 10 }}>
           {/* <p>{server.express}</p> */}
           <div>
@@ -136,14 +138,23 @@ function App() {
           }}>Get statistics for all countries about COVID-19</p>
         </Box>
         <Box display='flex' flexWrap="wrap" justifyContent='space-around' style={{ marginBottom: 10, marginTop: 10 }}>
-          <Paper >
-            <LineChart data={countryHistory} />
+          <Paper>
+            <StackedBarChar data={countryHistory} />
           </Paper>
           <Paper>
+            <MixedBarChart data={countryHistory} />
+          </Paper>
+          <Paper style={{marginTop: 10}}>
+            <LineChart data={countryHistory} />
+          </Paper>
+          <Paper style={{marginTop: 10}}>
             <LineChartTwo data={countryHistory} />
           </Paper>
+          {/* <Paper>
+            <LineChartTwo data={countryHistory} />
+          </Paper> */}
         </Box>
-        <div style={{marginTop: 25}}>
+        <div style={{ marginTop: 25 }}>
           <StickyTable data={covid19Stats} />
         </div>
       </div>

@@ -1,5 +1,4 @@
-import React, { PureComponent } from 'react';
-import Paper from '@material-ui/core/Paper';
+import React from 'react';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';

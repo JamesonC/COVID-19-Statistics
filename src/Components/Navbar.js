@@ -9,6 +9,7 @@ import { FaEnvelopeOpenText } from 'react-icons/fa';
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
+    
   },
   styling: {
     backgroundColor: '#1B1B1B',

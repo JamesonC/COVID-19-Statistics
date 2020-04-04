@@ -123,13 +123,13 @@ export default function StickyHeadTable(props) {
                   <StyledTableRow key={index}>
                     <StyledTableCell component="th" scope="row">{row.country}</StyledTableCell>
                     <StyledTableCell align="right">{row.time}</StyledTableCell>
-                    <StyledTableCell align="right">{row.cases.new}</StyledTableCell>
-                    <StyledTableCell align="right">{row.cases.active}</StyledTableCell>
-                    <StyledTableCell align="right">{row.cases.critical}</StyledTableCell>
-                    <StyledTableCell align="right">{row.cases.recovered}</StyledTableCell>
-                    <StyledTableCell align="right">{row.cases.total}</StyledTableCell>
+                    <StyledTableCell align="right">{row.cases.new.toLocaleString()}</StyledTableCell>
+                    <StyledTableCell align="right">{row.cases.active.toLocaleString()}</StyledTableCell>
+                    <StyledTableCell align="right">{row.cases.critical.toLocaleString()}</StyledTableCell>
+                    <StyledTableCell align="right">{row.cases.recovered.toLocaleString()}</StyledTableCell>
+                    <StyledTableCell align="right">{row.cases.total.toLocaleString()}</StyledTableCell>
                     {/* <StyledTableCell align="right">{row.deaths.new}</StyledTableCell> */}
-                    <StyledTableCell align="right">{row.deaths.total}</StyledTableCell>
+                    <StyledTableCell align="right">{row.deaths.total.toLocaleString()}</StyledTableCell>
                   </StyledTableRow>
                 );
               })}

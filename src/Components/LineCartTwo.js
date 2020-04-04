@@ -1,5 +1,4 @@
-import React, { PureComponent } from 'react';
-import Paper from '@material-ui/core/Paper';
+import React from 'react';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
@@ -45,7 +44,7 @@ export default function Chart(props) {
     const sortedData = convertObject(data)
 
     return (
-        <div>
+        <React.Fragment>
             <h4 style={{ paddingTop: 10 }}>Total Deaths</h4>
             <LineChart
                 width={500}
@@ -62,6 +61,6 @@ export default function Chart(props) {
                 <Legend />
                 <Line type="monotone" dataKey="deaths.total" stroke="#8884d8" activeDot={{ r: 8 }} />
             </LineChart>
-        </div>
+        </React.Fragment>
     )
 }

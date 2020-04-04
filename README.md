@@ -1,68 +1,64 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# COVID-19 Tracker
 
-## Available Scripts
+This web application displays COVID-19 stats for every country in the world and generates graphs for selected countries’ case types. The data is updated every 15 minutes. 
 
-In the project directory, you can run:
+My goal is to provide information that is easily digestible and informative to the public.
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+What things you need to install the software and how to install them
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+$ cd Desktop
+$ git clone https://github.com/JamesonC/COVID-19-Statistics.git
+```
 
-### `npm run build`
+### Installing
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+A step by step series of examples that tell you how to get a development env running
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Say what the step will be
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+$ cd COVID-19-Statistics
+$ npm install
+```
 
-### `npm run eject`
+Obtain Rapid API key and Host key from https://rapidapi.com/api-sports/api/covid-193
+Navigate to project root
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+$ touch .env
+$ open .env
+```
+Add these lines in the .env file
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+REACT_APP_HOST='insert host key'
+REACT_APP_COVID19_API_KEY='insert api key'
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Start Development Server
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+$ npm start
+```
 
-## Learn More
+## Built With
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* [React](https://reactjs.org/docs/create-a-new-react-app.html) - JavaScript library for building user interfaces
+* [Node](https://www.npmjs.com/package/node) - JavaScript runtime built on Chrome's V8 JavaScript engine
+* [Express](https://expressjs.com/) - Node.js web application framework
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Authors
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+* **Jameson Campbell** - *Initial work* - [Github](https://github.com/JamesonC)
 
-### Analyzing the Bundle Size
+## License
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details

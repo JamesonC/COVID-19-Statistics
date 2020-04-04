@@ -18,9 +18,13 @@ const GA_ID = `${process.env.REACT_APP_GA_KEY}`;
 const HOST_KEY = `${process.env.REACT_APP_HOST}`;
 const API_KEY = `${process.env.REACT_APP_COVID19_API_KEY}`
 
+const initializeAnalytics = () => {
+  ReactGA.initialize(GA_ID)
+  ReactGA.pageview('/')
+}
 
-const trackingId = GA_ID; // Google Analytics tracking ID
-ReactGA.initialize(trackingId);
+// const trackingId = GA_ID; // Google Analytics tracking ID
+// ReactGA.initialize(trackingId);
 
 
 const useStyles = makeStyles(theme => ({
@@ -71,6 +75,7 @@ const calculateWorldwideTotalDeaths = obj => {
 }
 
 function App() {
+  initializeAnalytics();
   const classes = useStyles();
   const [data, setData] = useState({ data: [] });
   const [dataHistory, setDataHistory] = useState({ dataHistory: [] });

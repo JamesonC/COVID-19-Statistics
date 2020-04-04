@@ -37,28 +37,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// const calculateWorldwideTotal = obj => {
-//   if (obj === undefined) {
-//     return null
-//   } else {
-//     const arrayObject = obj.map(result => {
-//       return result.cases.total
-//     })
-//     const total = arrayObject.reduce((a, b) => a + b / 2).toLocaleString()
-//     return total
-//   }
-// }
-
-const calculateWorldwideTotalCases = arr => {
-  if (arr === undefined) {
+const calculateWorldwideTotalCases = obj => {
+  if (obj === undefined) {
     return null
   } else {
-    const arrayObject = arr.map(result => {
+    const arrayObject = obj.map(result => {
       return result.cases.total
     })
-    console.log(arrayObject)
-    const total = arrayObject.reduce((a, b) => a + b / 2).toLocaleString()
-    return total
+    // console.log(arrayObject)
+    const total = arrayObject.reduce((a, b) => a + b / 2)
+    const roundedTotal = Math.round(total).toLocaleString()
+    return roundedTotal
   }
 }
 
@@ -69,8 +58,9 @@ const calculateWorldwideTotalDeaths = obj => {
     const arrayObject = obj.map(result => {
       return result.deaths.total
     })
-    const deathTotal = arrayObject.reduce((a, b) => a + b / 2).toLocaleString()
-    return deathTotal
+    const deathTotal = arrayObject.reduce((a, b) => a + b / 2)
+    const roundedDeathTotal = Math.round(deathTotal).toLocaleString()
+    return roundedDeathTotal
   }
 }
 
@@ -86,8 +76,6 @@ function App() {
   const [server, setServer] = useState({ data: null })
   const totalWorldwideDeaths = calculateWorldwideTotalDeaths(covid19Stats)
   const totalCases = calculateWorldwideTotalCases(covid19Stats)
-  // console.log(totalCases)
-  // console.log(totalWorldwideDeaths)
 
 
   const handleChange = event => {
@@ -152,7 +140,7 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <div justifyContent='space-around' style={{ marginLeft: 50, marginRight: 50 }}>
+      <div justifycontent='space-around' style={{ marginLeft: 50, marginRight: 50 }}>
         <Box display='flex' style={{ marginTop: 10 }}>
           {/* <p>{server.express}</p> */}
           <div>
@@ -189,9 +177,9 @@ function App() {
           }}>
             <p style={{marginLeft: 20}}>Get statistics for all countries about COVID-19</p>
             <div style={{ marginLeft: 20 }}> | </div>
-            <p style={{marginLeft: 20}}>Total Worldwide Cases: {totalCases}</p>
+            <p style={{marginLeft: 20}}>Total Worldwide Cases: <strong>{totalCases}</strong></p>
             <div style={{marginLeft: 20}}> | </div>
-            <p style={{marginLeft: 20}}>Total Worldwide Deaths: {totalWorldwideDeaths}</p>
+            <p style={{marginLeft: 20}}>Total Worldwide Deaths: <strong>{totalWorldwideDeaths}</strong></p>
           </div>
         </Box>
         <Box display='flex' flexWrap="wrap" justifyContent='space-around' style={{ marginBottom: 10, marginTop: 10 }}>
@@ -207,9 +195,6 @@ function App() {
           <Paper style={{ marginTop: 10 }}>
             <LineChartTwo data={countryHistory} />
           </Paper>
-          {/* <Paper>
-            <LineChartTwo data={countryHistory} />
-          </Paper> */}
         </Box>
         <div style={{ marginTop: 25 }}>
           <StickyTable data={covid19Stats} />

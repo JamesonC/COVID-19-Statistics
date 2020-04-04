@@ -18,9 +18,13 @@ const GA_ID = `${process.env.REACT_APP_GA_KEY}`;
 const HOST_KEY = `${process.env.REACT_APP_HOST}`;
 const API_KEY = `${process.env.REACT_APP_COVID19_API_KEY}`
 
+const initializeAnalytics = () => {
+  ReactGA.initialize(GA_ID)
+  ReactGA.pageview('/')
+}
 
-const trackingId = GA_ID; // Google Analytics tracking ID
-ReactGA.initialize(trackingId);
+// const trackingId = GA_ID; // Google Analytics tracking ID
+// ReactGA.initialize(trackingId);
 
 
 const useStyles = makeStyles(theme => ({
@@ -71,6 +75,7 @@ const calculateWorldwideTotalDeaths = obj => {
 }
 
 function App() {
+  initializeAnalytics();
   const classes = useStyles();
   const [data, setData] = useState({ data: [] });
   const [dataHistory, setDataHistory] = useState({ dataHistory: [] });
@@ -173,23 +178,17 @@ function App() {
               </Select>
             </FormControl>
           </div>
-          <p style={{
+          <div style={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-          }}>Get statistics for all countries about COVID-19</p>
-          <p style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginLeft: 20
-          }}>Total Worldwide Cases: {totalCases}</p>
-          <p style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginLeft: 20,
-          }}>Total Worldwide Deaths: {totalWorldwideDeaths}</p>
+          }}>
+            <p style={{marginLeft: 20}}>Get statistics for all countries about COVID-19</p>
+            <div style={{ marginLeft: 20 }}> | </div>
+            <p style={{marginLeft: 20}}>Total Worldwide Cases: {totalCases}</p>
+            <div style={{marginLeft: 20}}> | </div>
+            <p style={{marginLeft: 20}}>Total Worldwide Deaths: {totalWorldwideDeaths}</p>
+          </div>
         </Box>
         <Box display='flex' flexWrap="wrap" justifyContent='space-around' style={{ marginBottom: 10, marginTop: 10 }}>
           <Paper>
@@ -198,10 +197,10 @@ function App() {
           <Paper>
             <MixedBarChart data={countryHistory} />
           </Paper>
-          <Paper style={{marginTop: 10}}>
+          <Paper style={{ marginTop: 10 }}>
             <LineChart data={countryHistory} />
           </Paper>
-          <Paper style={{marginTop: 10}}>
+          <Paper style={{ marginTop: 10 }}>
             <LineChartTwo data={countryHistory} />
           </Paper>
           {/* <Paper>

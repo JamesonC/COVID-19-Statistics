@@ -93,6 +93,10 @@ function App() {
   const handleChange = event => {
     setCountry(event.target.value);
     setQuery(event.target.value)
+    ReactGA.event({
+      category: 'Country Selected',
+      action: 'Button Click',
+    });
   };
 
   useEffect(() => {

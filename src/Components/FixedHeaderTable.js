@@ -123,7 +123,7 @@ export default function StickyHeadTable(props) {
                   <StyledTableRow key={index}>
                     <StyledTableCell component="th" scope="row">{row.country}</StyledTableCell>
                     <StyledTableCell align="right">{row.time}</StyledTableCell>
-                    <StyledTableCell align="right">{row.cases.new.toLocaleString()}</StyledTableCell>
+                    <StyledTableCell align="right">{row.cases.new}</StyledTableCell>
                     <StyledTableCell align="right">{row.cases.active.toLocaleString()}</StyledTableCell>
                     <StyledTableCell align="right">{row.cases.critical.toLocaleString()}</StyledTableCell>
                     <StyledTableCell align="right">{row.cases.recovered.toLocaleString()}</StyledTableCell>

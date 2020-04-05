@@ -175,13 +175,14 @@ function App() {
             justifyContent: "center",
             alignItems: "center",
           }}>
-            <p style={{marginLeft: 20}}>Get statistics for all countries about COVID-19</p>
+            <p style={{ marginLeft: 20 }}>Get statistics for all countries about COVID-19</p>
             <div style={{ marginLeft: 20 }}> | </div>
-            <p style={{marginLeft: 20}}>Total Worldwide Cases: <strong>{totalCases}</strong></p>
-            <div style={{marginLeft: 20}}> | </div>
-            <p style={{marginLeft: 20}}>Total Worldwide Deaths: <strong>{totalWorldwideDeaths}</strong></p>
+            <p style={{ marginLeft: 20 }}>Worldwide Cases: <strong>{totalCases}</strong></p>
+            <div style={{ marginLeft: 20 }}> | </div>
+            <p style={{ marginLeft: 20 }}>Worldwide Deaths: <strong>{totalWorldwideDeaths}</strong></p>
           </div>
         </Box>
+        {/* <PieChart data={countryHistory} /> */}
         <Box display='flex' flexWrap="wrap" justifyContent='space-around' style={{ marginBottom: 10, marginTop: 10 }}>
           <Paper>
             <StackedBarChar data={countryHistory} />

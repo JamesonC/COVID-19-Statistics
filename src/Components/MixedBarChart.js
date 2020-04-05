@@ -27,6 +27,17 @@ import {
 //     },
 // ];
 
+// const calculateDailyNewCases = obj => {
+//     if (obj === undefined) {
+//       return null
+//     } else {
+//       const arrayObject = obj.map(result => {
+//         return result.cases.active
+//       })
+//       return arrayObject
+//     }
+//   }
+
 const convertObject = obj => {
     if (obj === undefined) {
         return null
@@ -39,10 +50,13 @@ const convertObject = obj => {
     }
 }
 
+
 export default function MixedBarChart(props) {
 
     const data = props.data
     const sortedData = convertObject(data)
+    // console.log(sortedData)
+    // console.log(calculateDailyNewCases(sortedData))
 
     return (
         <React.Fragment>

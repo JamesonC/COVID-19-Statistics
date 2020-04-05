@@ -58,7 +58,6 @@ const renderActiveShape = (props) => {
 
 export default class Example extends PureComponent {
 
-
   state = {
     activeIndex: 0,
   };
@@ -69,10 +68,37 @@ export default class Example extends PureComponent {
     });
   };
 
+
+  calculateTotalCriticalCases = obj => {
+    if (obj === undefined) {
+      return null
+    } else {
+
+      const latestCriticalCaseTotal = obj.map(result => {
+        return result.cases.critical
+      })
+      const criticalCaseTotal = latestCriticalCaseTotal[0]
+
+      const latestActiveCaseTotal = obj.map(result => {
+        return result.cases.active
+      })
+      const activeCaseTotal = latestActiveCaseTotal[0]
+
+      const ratio = (activeCaseTotal / criticalCaseTotal)
+      const roundedRatio = Math.round(ratio).toLocaleString()
+
+      return roundedRatio
+    }
+  }
+
   render() {
     const info = this.props.data
-    console.log(info)
+    console.log(this.calculateTotalCriticalCases(info))
+
     return (
+      <React.Fragment>
+      <p>Active to Critical Case Ratio</p>
+      <h4>{this.calculateTotalCriticalCases(info)} : 1</h4>
       <PieChart width={400} height={400}>
         <Pie
           activeIndex={this.state.activeIndex}
@@ -87,6 +113,7 @@ export default class Example extends PureComponent {
           onMouseEnter={this.onPieEnter}
         />
       </PieChart>
+      </React.Fragment>
     );
   }
 }

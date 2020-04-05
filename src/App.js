@@ -82,6 +82,7 @@ function App() {
   // }, []);
 
   // console.log(server)
+  {/* <p>{server.express}</p> */ }
 
   useEffect(() => {
     const fetchDataHistory = async () => {
@@ -123,43 +124,32 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <div justifycontent='space-around' style={{ marginLeft: 50, marginRight: 50 }}>
-        <Box display='flex' style={{ marginTop: 10 }}>
-          <div>
-            <DropbdownButton handleChange={updateStats} country={country}/>
-          </div>
-          {/* <p>{server.express}</p> */}
-          <div style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}>
-            <Typography style={{ marginLeft: 20 }}>Get statistics for all countries about COVID-19</Typography>
-            <div style={{ marginLeft: 20 }}> | </div>
-            <Typography style={{ marginLeft: 20 }}>Worldwide Cases: <strong>{totalCases}</strong></Typography>
-            <div style={{ marginLeft: 20 }}> | </div>
-            <Typography style={{ marginLeft: 20 }}>Worldwide Deaths: <strong>{totalWorldwideDeaths}</strong></Typography>
-          </div>
-        </Box>
-        {/* <PieChart data={countryHistory} /> */}
-        <Box display='flex' flexWrap="wrap" justifyContent='space-around' style={{ marginBottom: 10, marginTop: 10 }}>
-          <Paper>
-            <StackedBarChar data={countryHistory} />
-          </Paper>
-          <Paper>
-            <MixedBarChart data={countryHistory} />
-          </Paper>
-          <Paper style={{ marginTop: 10 }}>
-            <LineChart data={countryHistory} />
-          </Paper>
-          <Paper style={{ marginTop: 10 }}>
-            <LineChartTwo data={countryHistory} />
-          </Paper>
-        </Box>
-        <div style={{ marginTop: 25 }}>
-          <StickyTable data={covid19Stats} />
-        </div>
-      </div>
+        <Grid item xs={12} container direction="row" justify="flex-start" alignItems="center" style={{paddingLeft: 50, paddingRight: 50, marginTop: 10}}>
+          <DropbdownButton handleChange={updateStats} country={country} />
+          <Typography style={{ marginLeft: 20 }}>Get statistics for all countries about COVID-19</Typography>
+          <div style={{ marginLeft: 20 }}> | </div>
+          <Typography style={{ marginLeft: 20 }}>Worldwide Cases: <strong>{totalCases}</strong></Typography>
+          <div style={{ marginLeft: 20 }}> | </div>
+          <Typography style={{ marginLeft: 20 }}>Worldwide Deaths: <strong>{totalWorldwideDeaths}</strong></Typography>
+          {/* <PieChart data={countryHistory} /> */}
+            <Grid item xs={12} container direction="row" justify="space-evenly">
+              <Paper>
+                <StackedBarChar data={countryHistory} />
+              </Paper>
+              <Paper>
+                <MixedBarChart data={countryHistory} />
+              </Paper>
+              <Paper style={{ marginTop: 10 }}>
+                <LineChart data={countryHistory} />
+              </Paper>
+              <Paper style={{ marginTop: 10 }}>
+                <LineChartTwo data={countryHistory} />
+              </Paper>
+            </Grid>
+          <Grid item xs={12}>
+            <StickyTable data={covid19Stats} />
+          </Grid>
+        </Grid>
     </div>
   );
 }

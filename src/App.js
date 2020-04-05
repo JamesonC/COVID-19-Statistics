@@ -1,41 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import ReactGA from 'react-ga';
 import './App.css';
-import NavBar from './Components/Navbar';
-import { Box, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import NavBar from './Components/Navbar/Navbar';
+import { Box, Paper, InputLabel, MenuItem, FormControl, Select, IconButton, Menu, Typography, Grid, makeStyles } from '@material-ui/core';
 import StickyTable from './Components/FixedHeaderTable';
 import LineChart from './Components/LineChart';
 import LineChartTwo from './Components/LineCartTwo';
 import StackedBarChar from './Components/StackedBarChart';
 import MixedBarChart from './Components/MixedBarChart';
-// import PieChart from './Components/PieChart';
+import DropbdownButton from './Components/Dropdown Button/DropDownButton';
 const GA_ID = `${process.env.REACT_APP_GA_KEY}`;
 const HOST_KEY = `${process.env.REACT_APP_HOST}`;
-const API_KEY = `${process.env.REACT_APP_COVID19_API_KEY}`
+const API_KEY = `${process.env.REACT_APP_COVID19_API_KEY}`;
 
 const initializeAnalytics = () => {
   ReactGA.initialize(GA_ID)
   ReactGA.pageview('/')
 }
-
-// const trackingId = GA_ID; // Google Analytics tracking ID
-// ReactGA.initialize(trackingId);
-
-
-const useStyles = makeStyles(theme => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
 
 const calculateWorldwideTotalCases = obj => {
   if (obj === undefined) {
@@ -66,37 +47,39 @@ const calculateWorldwideTotalDeaths = obj => {
 
 function App() {
   initializeAnalytics();
-  const classes = useStyles();
   const [data, setData] = useState({ data: [] });
   const [dataHistory, setDataHistory] = useState({ dataHistory: [] });
   const [query, setQuery] = useState('Italy'); // USA
-  const [country, setCountry] = React.useState('Italy');
+  const [country, setCountry] = useState('Italy');
   const covid19Stats = data.response
   const countryHistory = dataHistory.response
-  const [server, setServer] = useState({ data: null })
+  // const [server, setServer] = useState({ data: null })
   const totalWorldwideDeaths = calculateWorldwideTotalDeaths(covid19Stats)
   const totalCases = calculateWorldwideTotalCases(covid19Stats)
 
+  const updateStats = event => {
+    const value = event.target.value
 
-  const handleChange = event => {
-    setCountry(event.target.value);
-    setQuery(event.target.value)
+    setCountry(value);
+    setQuery(value);
+
     ReactGA.event({
       category: 'Country Selected',
       action: 'Button Click',
     });
-  };
+  }
 
-  useEffect(() => {
-    const callBackendAPI = async () => {
-      const response = await fetch('/');
-      response
-        .json()
-        .then(result => setServer(result))
-        .catch((e => console.log(e)))
-    };
-    callBackendAPI()
-  }, []);
+
+  // useEffect(() => {
+  //   const callBackendAPI = async () => {
+  //     const response = await fetch('/');
+  //     response
+  //       .json()
+  //       .then(result => setServer(result))
+  //       .catch((e => console.log(e)))
+  //   };
+  //   callBackendAPI()
+  // }, []);
 
   // console.log(server)
 
@@ -142,44 +125,20 @@ function App() {
       <NavBar />
       <div justifycontent='space-around' style={{ marginLeft: 50, marginRight: 50 }}>
         <Box display='flex' style={{ marginTop: 10 }}>
-          {/* <p>{server.express}</p> */}
           <div>
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>
-              <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={country}
-                onChange={handleChange}
-                label="Country"
-              >
-                <MenuItem value="">
-                </MenuItem>
-                <MenuItem value={'USA'}>United States</MenuItem>
-                <MenuItem value={'Italy'}>Italy</MenuItem>
-                <MenuItem value={'Canada'}>Canada</MenuItem>
-                <MenuItem value={'China'}>China</MenuItem>
-                <MenuItem value={'India'}>India</MenuItem>
-                <MenuItem value={'Indonesia'}>Indonesia</MenuItem>
-                <MenuItem value={'Pakistan'}>Pakistan</MenuItem>
-                <MenuItem value={'Brazil'}>Brazil</MenuItem>
-                <MenuItem value={'Russia'}>Russia</MenuItem>
-                <MenuItem value={'Mexico'}>Mexico</MenuItem>
-                <MenuItem value={'Japan'}>Japan</MenuItem>
-                <MenuItem value={'France'}>France</MenuItem>
-              </Select>
-            </FormControl>
+            <DropbdownButton handleChange={updateStats} country={country}/>
           </div>
+          {/* <p>{server.express}</p> */}
           <div style={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
           }}>
-            <p style={{ marginLeft: 20 }}>Get statistics for all countries about COVID-19</p>
+            <Typography style={{ marginLeft: 20 }}>Get statistics for all countries about COVID-19</Typography>
             <div style={{ marginLeft: 20 }}> | </div>
-            <p style={{ marginLeft: 20 }}>Worldwide Cases: <strong>{totalCases}</strong></p>
+            <Typography style={{ marginLeft: 20 }}>Worldwide Cases: <strong>{totalCases}</strong></Typography>
             <div style={{ marginLeft: 20 }}> | </div>
-            <p style={{ marginLeft: 20 }}>Worldwide Deaths: <strong>{totalWorldwideDeaths}</strong></p>
+            <Typography style={{ marginLeft: 20 }}>Worldwide Deaths: <strong>{totalWorldwideDeaths}</strong></Typography>
           </div>
         </Box>
         {/* <PieChart data={countryHistory} /> */}

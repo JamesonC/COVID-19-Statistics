@@ -33,7 +33,7 @@ export const calculateWorldwideTotalCases = obj => {
     if (obj === undefined) {
         return null
     } else {
-        const objectArray = Object.entries(obj).reverse()
+        const objectArray = Object.entries(obj).slice(0, 75).reverse()
         const arrayObject = objectArray.map(([key, value]) => {
             return value
         })

@@ -73,7 +73,6 @@ export default class Example extends PureComponent {
     if (obj === undefined) {
       return null
     } else {
-
       const latestCriticalCaseTotal = obj.map(result => {
         return result.cases.critical
       })

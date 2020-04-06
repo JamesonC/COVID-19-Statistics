@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+    BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
+import { convertObject } from '../../libs/helpers';
 
 // const data = [
 //     {
@@ -27,31 +28,19 @@ import {
 //     },
 // ];
 
-const convertObject = obj => {
-    if (obj === undefined) {
-        return null
-    } else {
-        const objectArray = Object.entries(obj).reverse()
-        const arrayObject = objectArray.map(([key, value]) => {
-            return value
-        })
-        return arrayObject
-    }
-}
-
-export default function Chart(props) {
+export default function BarGraph(props) {
     const data = props.data
     const sortedData = convertObject(data)
 
     return (
         <React.Fragment>
-            <h4 style={{ paddingTop: 10 }}>Total Deaths</h4>
-            <LineChart
+            <h4 style={{ paddingTop: 10 }}>Cases vs. Deaths</h4>
+            <BarChart
                 width={500}
                 height={300}
                 data={sortedData}
                 margin={{
-                    top: 5, right: 75, left: 25, bottom: 5,
+                    top: 20, right: 60, left: 20, bottom: 5,
                 }}
             >
                 <CartesianGrid strokeDasharray="3 3" />
@@ -59,8 +48,10 @@ export default function Chart(props) {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="deaths.total" stroke="#8884d8" activeDot={{ r: 8 }} />
-            </LineChart>
+                <Bar dataKey="cases.total" stackId="a" fill="#8884d8" />
+                <Bar dataKey="deaths.total" stackId="a" fill="#ffc658" />
+            </BarChart>
         </React.Fragment>
-    )
+    );
 }
+

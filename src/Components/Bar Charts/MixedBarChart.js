@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+    BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
+import { convertObject } from '../../libs/helpers';
 
 // const data = [
 //     {
@@ -27,31 +28,33 @@ import {
 //     },
 // ];
 
-const convertObject = obj => {
-    if (obj === undefined) {
-        return null
-    } else {
-        const objectArray = Object.entries(obj).reverse()
-        const arrayObject = objectArray.map(([key, value]) => {
-            return value
-        })
-        return arrayObject
-    }
-}
+// const calculateDailyNewCases = obj => {
+//     if (obj === undefined) {
+//       return null
+//     } else {
+//       const arrayObject = obj.map(result => {
+//         return result.cases.active
+//       })
+//       return arrayObject
+//     }
+//   }
 
-export default function Chart(props) {
+export default function MixedBarChart(props) {
+
     const data = props.data
     const sortedData = convertObject(data)
+    // console.log(sortedData)
+    // console.log(calculateDailyNewCases(sortedData))
 
     return (
         <React.Fragment>
-            <h4 style={{ paddingTop: 10 }}>Active vs. Critical</h4>
-            <LineChart
+            <h4 style={{ paddingTop: 10 }}>Recovered vs. Total Cases vs. Total Deaths</h4>
+            <BarChart
                 width={500}
                 height={300}
                 data={sortedData}
                 margin={{
-                    top: 5, right: 75, left: 25, bottom: 5,
+                    top: 20, right: 60, left: 20, bottom: 5,
                 }}
             >
                 <CartesianGrid strokeDasharray="3 3" />
@@ -59,9 +62,10 @@ export default function Chart(props) {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="cases.active" stroke="#8884d8" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="cases.critical" stroke="#82ca9d" />
-            </LineChart>
+                <Bar dataKey="cases.total" stackId="a" fill="#8884d8" />
+                <Bar dataKey="cases.recovered" stackId="a" fill="#82ca9d" />
+                <Bar dataKey="deaths.total" fill="#ffc658" />
+            </BarChart>
         </React.Fragment>
-    )
+    );
 }

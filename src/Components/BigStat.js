@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useTheme, createStyles } from "@material-ui/styles";
-import classnames from "classnames";
-import { calculateWorldwideTotalCases, calculateWorldwideActiveCases, calculateWorldwideTotalDeaths, calculateWorldwideCriticalCases, calculateLast7DaysofWorldwideActiveCases } from '../libs/helpers';
+import React from "react";
+// import { useTheme } from "@material-ui/styles";
+// import classnames from "classnames";
+import { calculateWorldwideTotalCases, calculateWorldwideActiveCases, calculateWorldwideTotalDeaths, calculateWorldwideCriticalCases } from '../libs/helpers';
 
 // styles
 import useStyles from "./styles";
@@ -14,7 +14,7 @@ import { Typography } from "./Wrappers/Wrappers";
 export const BigStat = props => {
 
   var classes = useStyles();
-  var theme = useTheme();
+  // var theme = useTheme();
   const worldwideActiveCases = calculateWorldwideActiveCases(props.data)
 
   return (
@@ -69,7 +69,7 @@ export const BigStatTwo = props => {
 export const BigStatThree = props => {
 
   var classes = useStyles();
-  var theme = useTheme();
+  // var theme = useTheme();
   const worldwideDeaths = calculateWorldwideTotalDeaths(props.data)
 
   return (

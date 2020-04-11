@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { useTheme } from "@material-ui/styles";
-import { Box, Paper, Typography, Grid } from '@material-ui/core';
+// import { useTheme } from "@material-ui/styles";
+import { Paper, Typography, Grid } from '@material-ui/core';
 import ReactGA from 'react-ga';
 
 // styles
-import useStyles from "./Components/styles";
+// import useStyles from "./Components/styles";
 
 // components
 import NavBar from './Components/Navbar/Navbar';
-import StickyTable from './Components/Table/FixedHeaderTable';
 import LineCharts from './Components/Line Charts/LineChart';
 import LineChartTwo from './Components/Line Charts/LineCartTwo';
 import StackedBarChar from './Components/Bar Charts/StackedBarChart';
@@ -18,6 +17,8 @@ import DropbdownButton from './Components/Dropdown Button/DropDownButton';
 import { BigStat, BigStatTwo, BigStatThree, BigStatFour } from './Components/BigStat';
 // import mock from './Components/mock';
 // import Widget from './Components/Widget';
+// import StickyTable from './Components/Table/FixedHeaderTable';
+// import PieChart from './Components/PieChart';
 
 // keys
 const GA_ID = `${process.env.REACT_APP_GA_KEY}`;
@@ -33,8 +34,8 @@ const initializeAnalytics = () => {
 function App() {
   initializeAnalytics();
 
-  let classes = useStyles();
-  let theme = useTheme();
+  // let classes = useStyles();
+  // let theme = useTheme();
 
   const [data, setData] = useState({ data: [] });
   const [dataHistory, setDataHistory] = useState({ dataHistory: [] });
@@ -109,45 +110,45 @@ function App() {
     <div className="App">
       <NavBar />
       <Grid item xs={12} style={{ paddingLeft: 50, paddingRight: 50, marginTop: 10 }}>
-        {/* <PieChart data={countryHistory} /> */}
         {/* {mock.bigStat.map(stat => (
           <Grid lg={3} md={4} sm={6} xs={12} key={stat.product}>
             <BigStat {...stat} data={covid19Stats} />
           </Grid>
         ))} */}
         <Grid item xs={12} container direction="row" alignItems="center">
-          <Grid lg={3} md={4} sm={6} xs={12}>
+          <Grid item lg={3} md={4} sm={6} xs={12}>
             <BigStatTwo data={covid19Stats} />
           </Grid>
-          <Grid lg={3} md={4} sm={6} xs={12}>
+          <Grid item lg={3} md={4} sm={6} xs={12}>
             <BigStat data={covid19Stats} />
           </Grid>
-          <Grid lg={3} md={4} sm={6} xs={12}>
+          <Grid item lg={3} md={4} sm={6} xs={12}>
             <BigStatFour data={covid19Stats} />
           </Grid>
-          <Grid lg={3} md={4} sm={6} xs={12}>
+          <Grid item lg={3} md={4} sm={6} xs={12}>
             <BigStatThree data={covid19Stats} />
           </Grid>
         </Grid>
+        {/* <PieChart data={countryHistory} /> */}
         <Grid style={{ marginTop: 50, marginBottom: 25 }}>
           <Typography style={{ paddingLeft: 20, fontWeight: 100, fontSize: 54, color: 'rgb(110, 110, 110)' }}>Search <DropbdownButton handleChange={updateStats} country={country} /> to see stats</Typography>
         </Grid>
         {showResults ?
-        <Grid item xs={12} container direction="row" justify="space-evenly" style={{ marginBottom: 10 }}>
-          <Paper>
-            <StackedBarChar data={countryHistory} />
-          </Paper>
-          <Paper>
-            <MixedBarChart data={countryHistory} />
-          </Paper>
-          <Paper style={{ marginTop: 10 }}>
-            <LineCharts data={countryHistory} />
-          </Paper>
-          <Paper style={{ marginTop: 10 }}>
-            <LineChartTwo data={countryHistory} />
-          </Paper>
-        </Grid>
-        : null }
+          <Grid item xs={12} container direction="row" justify="space-evenly" style={{ marginBottom: 50 }}>
+            <Paper>
+              <StackedBarChar data={countryHistory} />
+            </Paper>
+            <Paper>
+              <MixedBarChart data={countryHistory} />
+            </Paper>
+            <Paper style={{ marginTop: 10 }}>
+              <LineCharts data={countryHistory} />
+            </Paper>
+            <Paper style={{ marginTop: 10 }}>
+              <LineChartTwo data={countryHistory} />
+            </Paper>
+          </Grid>
+          : null}
         {/* <Grid item xs={12}>
           <StickyTable data={covid19Stats} />
         </Grid> */}

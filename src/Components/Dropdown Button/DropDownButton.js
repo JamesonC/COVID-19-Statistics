@@ -35,8 +35,7 @@ export default function Dropdown(props) {
                 onChange={handleChange}
                 label="Country"
             >
-                {/* <MenuItem value="">
-                </MenuItem> */}
+                <MenuItem value={"Country"}>Country</MenuItem>
                 <MenuItem value={'USA'}>United States</MenuItem>
                 <MenuItem value={'Italy'}>Italy</MenuItem>
                 <MenuItem value={'Canada'}>Canada</MenuItem>

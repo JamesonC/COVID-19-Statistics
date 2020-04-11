@@ -38,16 +38,18 @@ function App() {
 
   const [data, setData] = useState({ data: [] });
   const [dataHistory, setDataHistory] = useState({ dataHistory: [] });
-  const [query, setQuery] = useState('Italy'); // USA
-  const [country, setCountry] = useState('Italy');
+  const [query, setQuery] = useState(''); // USA
+  const [country, setCountry] = useState('');
   const covid19Stats = data.response
   const countryHistory = dataHistory.response
+  const [showResults, setShowResults] = useState(false)
   // const [server, setServer] = useState({ data: null })
 
   const updateStats = event => {
     const value = event.target.value
     setCountry(value);
     setQuery(value);
+    value === 'Country' ? setShowResults(false) : setShowResults(true)
     ReactGA.event({
       category: 'Country Selected',
       action: 'Button Click',
@@ -106,27 +108,31 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <Grid item xs={12} container direction="row" justify="flex-start" alignItems="center" style={{ paddingLeft: 50, paddingRight: 50, marginTop: 10 }}>
+      <Grid item xs={12} style={{ paddingLeft: 50, paddingRight: 50, marginTop: 10 }}>
         {/* <PieChart data={countryHistory} /> */}
         {/* {mock.bigStat.map(stat => (
           <Grid lg={3} md={4} sm={6} xs={12} key={stat.product}>
             <BigStat {...stat} data={covid19Stats} />
           </Grid>
         ))} */}
-        <Grid lg={3} md={4} sm={6} xs={12}>
-          <BigStatTwo data={covid19Stats} />
+        <Grid item xs={12} container direction="row" alignItems="center">
+          <Grid lg={3} md={4} sm={6} xs={12}>
+            <BigStatTwo data={covid19Stats} />
+          </Grid>
+          <Grid lg={3} md={4} sm={6} xs={12}>
+            <BigStat data={covid19Stats} />
+          </Grid>
+          <Grid lg={3} md={4} sm={6} xs={12}>
+            <BigStatFour data={covid19Stats} />
+          </Grid>
+          <Grid lg={3} md={4} sm={6} xs={12}>
+            <BigStatThree data={covid19Stats} />
+          </Grid>
         </Grid>
-        <Grid lg={3} md={4} sm={6} xs={12}>
-          <BigStat data={covid19Stats} />
+        <Grid style={{ marginTop: 50, marginBottom: 25 }}>
+          <Typography style={{ paddingLeft: 20, fontWeight: 100, fontSize: 54, color: 'rgb(110, 110, 110)' }}>Search <DropbdownButton handleChange={updateStats} country={country} /> to see stats</Typography>
         </Grid>
-        <Grid lg={3} md={4} sm={6} xs={12}>
-          <BigStatFour data={covid19Stats} />
-        </Grid>
-        <Grid lg={3} md={4} sm={6} xs={12}>
-          <BigStatThree data={covid19Stats} />
-        </Grid>
-        <DropbdownButton handleChange={updateStats} country={country} />
-        <Typography style={{ paddingLeft: 20 }}>Search by country to see graphs</Typography>
+        {showResults ?
         <Grid item xs={12} container direction="row" justify="space-evenly" style={{ marginBottom: 10 }}>
           <Paper>
             <StackedBarChar data={countryHistory} />
@@ -141,9 +147,10 @@ function App() {
             <LineChartTwo data={countryHistory} />
           </Paper>
         </Grid>
-        <Grid item xs={12}>
+        : null }
+        {/* <Grid item xs={12}>
           <StickyTable data={covid19Stats} />
-        </Grid>
+        </Grid> */}
       </Grid>
     </div>
   );

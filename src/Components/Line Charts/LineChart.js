@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 } from 'recharts';
+import { convertObject } from '../../libs/helpers';
 
 // const data = [
 //     {
@@ -27,17 +28,6 @@ import {
 //     },
 // ];
 
-const convertObject = obj => {
-    if (obj === undefined) {
-        return null
-    } else {
-        const objectArray = Object.entries(obj).reverse()
-        const arrayObject = objectArray.map(([key, value]) => {
-            return value
-        })
-        return arrayObject
-    }
-}
 
 export default function Chart(props) {
     const data = props.data

@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-    BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+    BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
+import { convertObject } from '../../libs/helpers';
 
 // const data = [
 //     {
@@ -38,25 +39,10 @@ import {
 //     }
 //   }
 
-const convertObject = obj => {
-    if (obj === undefined) {
-        return null
-    } else {
-        const objectArray = Object.entries(obj).reverse()
-        const arrayObject = objectArray.map(([key, value]) => {
-            return value
-        })
-        return arrayObject
-    }
-}
-
-
 export default function MixedBarChart(props) {
 
     const data = props.data
     const sortedData = convertObject(data)
-    // console.log(sortedData)
-    // console.log(calculateDailyNewCases(sortedData))
 
     return (
         <React.Fragment>

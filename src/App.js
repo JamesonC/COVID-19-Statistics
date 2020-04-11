@@ -1,104 +1,75 @@
 import React, { useState, useEffect } from 'react';
-import ReactGA from 'react-ga';
 import './App.css';
-import NavBar from './Components/Navbar';
-import { Box, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import StickyTable from './Components/FixedHeaderTable';
-import LineChart from './Components/LineChart';
-import LineChartTwo from './Components/LineCartTwo';
-import StackedBarChar from './Components/StackedBarChart';
-import MixedBarChart from './Components/MixedBarChart';
+// import { useTheme } from "@material-ui/styles";
+import { Paper, Typography, Grid } from '@material-ui/core';
+import ReactGA from 'react-ga';
+
+// styles
+// import useStyles from "./Components/styles";
+
+// components
+import NavBar from './Components/Navbar/Navbar';
+import LineCharts from './Components/Line Charts/LineChart';
+import LineChartTwo from './Components/Line Charts/LineCartTwo';
+import StackedBarChar from './Components/Bar Charts/StackedBarChart';
+import MixedBarChart from './Components/Bar Charts/MixedBarChart';
+import DropbdownButton from './Components/Dropdown Button/DropDownButton';
+import { BigStat, BigStatTwo, BigStatThree, BigStatFour } from './Components/BigStat';
+// import mock from './Components/mock';
+// import Widget from './Components/Widget';
+// import StickyTable from './Components/Table/FixedHeaderTable';
 // import PieChart from './Components/PieChart';
+
+// keys
 const GA_ID = `${process.env.REACT_APP_GA_KEY}`;
 const HOST_KEY = `${process.env.REACT_APP_HOST}`;
-const API_KEY = `${process.env.REACT_APP_COVID19_API_KEY}`
+const API_KEY = `${process.env.REACT_APP_COVID19_API_KEY}`;
+
 
 const initializeAnalytics = () => {
   ReactGA.initialize(GA_ID)
   ReactGA.pageview('/')
 }
 
-// const trackingId = GA_ID; // Google Analytics tracking ID
-// ReactGA.initialize(trackingId);
-
-
-const useStyles = makeStyles(theme => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
-const calculateWorldwideTotalCases = obj => {
-  if (obj === undefined) {
-    return null
-  } else {
-    const arrayObject = obj.map(result => {
-      return result.cases.total
-    })
-    // console.log(arrayObject)
-    const total = arrayObject.reduce((a, b) => a + b / 2)
-    const roundedTotal = Math.round(total).toLocaleString()
-    return roundedTotal
-  }
-}
-
-const calculateWorldwideTotalDeaths = obj => {
-  if (obj === undefined) {
-    return null
-  } else {
-    const arrayObject = obj.map(result => {
-      return result.deaths.total
-    })
-    const deathTotal = arrayObject.reduce((a, b) => a + b / 2)
-    const roundedDeathTotal = Math.round(deathTotal).toLocaleString()
-    return roundedDeathTotal
-  }
-}
-
 function App() {
   initializeAnalytics();
-  const classes = useStyles();
+
+  // let classes = useStyles();
+  // let theme = useTheme();
+
   const [data, setData] = useState({ data: [] });
   const [dataHistory, setDataHistory] = useState({ dataHistory: [] });
-  const [query, setQuery] = useState('Italy'); // USA
-  const [country, setCountry] = React.useState('Italy');
+  const [query, setQuery] = useState(''); // USA
+  const [country, setCountry] = useState('');
   const covid19Stats = data.response
   const countryHistory = dataHistory.response
-  const [server, setServer] = useState({ data: null })
-  const totalWorldwideDeaths = calculateWorldwideTotalDeaths(covid19Stats)
-  const totalCases = calculateWorldwideTotalCases(covid19Stats)
+  const [showResults, setShowResults] = useState(false)
+  // const [server, setServer] = useState({ data: null })
 
-
-  const handleChange = event => {
-    setCountry(event.target.value);
-    setQuery(event.target.value)
+  const updateStats = event => {
+    const value = event.target.value
+    setCountry(value);
+    setQuery(value);
+    value === 'Country' ? setShowResults(false) : setShowResults(true)
     ReactGA.event({
       category: 'Country Selected',
       action: 'Button Click',
     });
-  };
+  }
 
-  useEffect(() => {
-    const callBackendAPI = async () => {
-      const response = await fetch('/');
-      response
-        .json()
-        .then(result => setServer(result))
-        .catch((e => console.log(e)))
-    };
-    callBackendAPI()
-  }, []);
+  // useEffect(() => {
+  //   const callBackendAPI = async () => {
+  //     const response = await fetch('/');
+  //     response
+  //       .json()
+  //       .then(result => setServer(result))
+  //       .catch((e => console.log(e)))
+  //   };
+  //   callBackendAPI()
+  // }, []);
 
   // console.log(server)
+  {/* <p>{server.express}</p> */ }
 
   useEffect(() => {
     const fetchDataHistory = async () => {
@@ -135,72 +106,53 @@ function App() {
     fetchData()
   }, [query]);
 
-
-
   return (
     <div className="App">
       <NavBar />
-      <div justifycontent='space-around' style={{ marginLeft: 50, marginRight: 50 }}>
-        <Box display='flex' style={{ marginTop: 10 }}>
-          {/* <p>{server.express}</p> */}
-          <div>
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel id="demo-simple-select-outlined-label">Country</InputLabel>
-              <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={country}
-                onChange={handleChange}
-                label="Country"
-              >
-                <MenuItem value="">
-                </MenuItem>
-                <MenuItem value={'USA'}>United States</MenuItem>
-                <MenuItem value={'Italy'}>Italy</MenuItem>
-                <MenuItem value={'Canada'}>Canada</MenuItem>
-                <MenuItem value={'China'}>China</MenuItem>
-                <MenuItem value={'India'}>India</MenuItem>
-                <MenuItem value={'Indonesia'}>Indonesia</MenuItem>
-                <MenuItem value={'Pakistan'}>Pakistan</MenuItem>
-                <MenuItem value={'Brazil'}>Brazil</MenuItem>
-                <MenuItem value={'Russia'}>Russia</MenuItem>
-                <MenuItem value={'Mexico'}>Mexico</MenuItem>
-                <MenuItem value={'Japan'}>Japan</MenuItem>
-                <MenuItem value={'France'}>France</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-          <div style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}>
-            <p style={{ marginLeft: 20 }}>Get statistics for all countries about COVID-19</p>
-            <div style={{ marginLeft: 20 }}> | </div>
-            <p style={{ marginLeft: 20 }}>Worldwide Cases: <strong>{totalCases}</strong></p>
-            <div style={{ marginLeft: 20 }}> | </div>
-            <p style={{ marginLeft: 20 }}>Worldwide Deaths: <strong>{totalWorldwideDeaths}</strong></p>
-          </div>
-        </Box>
+      <Grid item xs={12} style={{ paddingLeft: 50, paddingRight: 50, marginTop: 10 }}>
+        {/* {mock.bigStat.map(stat => (
+          <Grid lg={3} md={4} sm={6} xs={12} key={stat.product}>
+            <BigStat {...stat} data={covid19Stats} />
+          </Grid>
+        ))} */}
+        <Grid item xs={12} container direction="row" alignItems="center">
+          <Grid item lg={3} md={4} sm={6} xs={12}>
+            <BigStatTwo data={covid19Stats} />
+          </Grid>
+          <Grid item lg={3} md={4} sm={6} xs={12}>
+            <BigStat data={covid19Stats} />
+          </Grid>
+          <Grid item lg={3} md={4} sm={6} xs={12}>
+            <BigStatFour data={covid19Stats} />
+          </Grid>
+          <Grid item lg={3} md={4} sm={6} xs={12}>
+            <BigStatThree data={covid19Stats} />
+          </Grid>
+        </Grid>
         {/* <PieChart data={countryHistory} /> */}
-        <Box display='flex' flexWrap="wrap" justifyContent='space-around' style={{ marginBottom: 10, marginTop: 10 }}>
-          <Paper>
-            <StackedBarChar data={countryHistory} />
-          </Paper>
-          <Paper>
-            <MixedBarChart data={countryHistory} />
-          </Paper>
-          <Paper style={{ marginTop: 10 }}>
-            <LineChart data={countryHistory} />
-          </Paper>
-          <Paper style={{ marginTop: 10 }}>
-            <LineChartTwo data={countryHistory} />
-          </Paper>
-        </Box>
-        <div style={{ marginTop: 25 }}>
+        <Grid style={{ marginTop: 50, marginBottom: 25 }}>
+          <Typography style={{ paddingLeft: 20, fontWeight: 100, fontSize: 54, color: 'rgb(110, 110, 110)' }}>Search <DropbdownButton handleChange={updateStats} country={country} /> to see stats</Typography>
+        </Grid>
+        {showResults ?
+          <Grid item xs={12} container direction="row" justify="space-evenly" style={{ marginBottom: 50 }}>
+            <Paper>
+              <StackedBarChar data={countryHistory} />
+            </Paper>
+            <Paper>
+              <MixedBarChart data={countryHistory} />
+            </Paper>
+            <Paper style={{ marginTop: 10 }}>
+              <LineCharts data={countryHistory} />
+            </Paper>
+            <Paper style={{ marginTop: 10 }}>
+              <LineChartTwo data={countryHistory} />
+            </Paper>
+          </Grid>
+          : null}
+        {/* <Grid item xs={12}>
           <StickyTable data={covid19Stats} />
-        </div>
-      </div>
+        </Grid> */}
+      </Grid>
     </div>
   );
 }

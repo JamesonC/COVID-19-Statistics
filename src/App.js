@@ -44,6 +44,7 @@ function App() {
   const covid19Stats = data.response
   const countryHistory = dataHistory.response
   const [showResults, setShowResults] = useState(false)
+  {console.log(countryHistory)}
   // const [server, setServer] = useState({ data: null })
 
   const updateStats = event => {
@@ -115,11 +116,11 @@ function App() {
             <BigStat {...stat} data={covid19Stats} />
           </Grid>
         ))} */}
-        <Grid item xs={12} container direction="row" alignItems="center">
+        <Grid item xs={12} container direction="row" alignItems="center" spacing={2}>
           <Grid item lg={3} md={4} sm={6} xs={12}>
             <BigStatTwo data={covid19Stats} />
           </Grid>
-          <Grid item lg={3} md={4} sm={6} xs={12}>
+          <Grid item lg={3} md={4} sm={6} xs={12} >
             <BigStat data={covid19Stats} />
           </Grid>
           <Grid item lg={3} md={4} sm={6} xs={12}>

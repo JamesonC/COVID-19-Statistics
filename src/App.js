@@ -44,7 +44,6 @@ function App() {
   const covid19Stats = data.response
   const countryHistory = dataHistory.response
   const [showResults, setShowResults] = useState(false)
-  {console.log(countryHistory)}
   // const [server, setServer] = useState({ data: null })
 
   const updateStats = event => {
@@ -116,7 +115,7 @@ function App() {
             <BigStat {...stat} data={covid19Stats} />
           </Grid>
         ))} */}
-        <Grid item xs={12} container direction="row" alignItems="center" spacing={2}>
+        <Grid container direction="row" spacing={3}>
           <Grid item lg={3} md={4} sm={6} xs={12}>
             <BigStatTwo data={covid19Stats} />
           </Grid>
@@ -132,7 +131,7 @@ function App() {
         </Grid>
         {/* <PieChart data={countryHistory} /> */}
         <Grid style={{ marginTop: 50, marginBottom: 25 }}>
-          <Typography style={{ paddingLeft: 20, fontWeight: 100, fontSize: 54, color: 'rgb(110, 110, 110)' }}>Search <DropbdownButton handleChange={updateStats} country={country} /> to see stats</Typography>
+          <Typography style={{ fontWeight: 100, fontSize: 54, color: 'rgb(110, 110, 110)'}}>Search <DropbdownButton handleChange={updateStats} country={country} /> to see stats</Typography>
         </Grid>
         {showResults ?
           <Grid item xs={12} container direction="row" justify="space-evenly" style={{ marginBottom: 50 }}>
